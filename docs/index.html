@@ -3,104 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <title>MediaLab | Website de Datos</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       max-width: 900px;
       margin: 40px auto;
       line-height: 1.6;
+      color: #222;
     }
+
     h1, h2 {
       color: #2c3e50;
     }
+
     .box {
       border: 1px solid #ddd;
       padding: 20px;
       border-radius: 10px;
-      margin-top: 20px;
+      margin-top: 25px;
     }
+
+    ul {
+      padding-left: 20px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      margin-top: 15px;
     }
+
     th, td {
       border-bottom: 1px solid #ccc;
       padding: 8px;
       text-align: left;
     }
+
     th {
       background-color: #f2f2f2;
     }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
 
-<h1>Proyecto académico: Website de Datos</h1>
-
-<p>
-Este sitio web forma parte del curso de
-<b>Extracción y Procesamiento de Datos</b>.
-</p>
-
-<div class="box">
-  <h2>Pregunta del proyecto</h2>
-  <p>
-    ¿Qué temas aparecen con mayor frecuencia en los titulares del Blog oficial de Python?
-  </p>
-</div>
-
-<div class="box">
-  <h2>Fuente</h2>
-  <p>
-    Sitio web: https://blog.python.org/<br>
-    Fecha de extracción: 19 de enero de 2026
-  </p>
-</div>
-
-<div class="box">
-  <h2>Descarga de datos (CSV)</h2>
-  <ul>
-    <li>
-      <a href="../data/posts_python_blog.csv">
-        Titulares del Blog de Python
-      </a>
-    </li>
-    <li>
-      <a href="../data/top_palabras_titulos.csv">
-        Top palabras en titulares
-      </a>
-    </li>
-  </ul>
-</div>
-
-<div class="box">
-  <h2>Top palabras en titulares (ejemplo)</h2>
-
-  <table>
-    <tr>
-      <th>Palabra</th>
-      <th>Frecuencia</th>
-    </tr>
-    <tr>
-      <td>release</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>python</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <td>security</td>
-      <td>7</td>
-    </tr>
-  </table>
+  <h1>Proyecto académico: Website de Datos</h1>
 
   <p>
-    <i>Tabla de ejemplo. Los datos reales provienen del procesamiento en Python.</i>
+    Este sitio web forma parte del curso de
+    <b>Extracción y Procesamiento de Datos</b>.
+    El objetivo es mostrar cómo un/a estudiante de comunicaciones puede
+    extraer información de una página web, procesarla con Python
+    y publicarla en una web académica usando GitHub.
   </p>
-</div>
+
+  <div class="box">
+    <h2>Pregunta del proyecto</h2>
+    <p>
+      ¿Qué temas aparecen con mayor frecuencia en los titulares del
+      Blog oficial de Python?
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>Fuente de datos</h2>
+    <p>
+      Sitio web: <a href="https://blog.python.org/" target="_blank">https://blog.python.org/</a><br>
+      Fecha de extracción: 19 de enero de 2026
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>Metodología</h2>
+    <ul>
+      <li>Scraping de titulares usando Python (requests + BeautifulSoup).</li>
+      <li>Limpieza y procesamiento de texto.</li>
+      <li>Cálculo de frecuencias de palabras.</li>
+      <li>Publicación de datos y resultados en GitHub Pages.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>Descarga de datos (CSV)</h2>
+    <ul>
+      <li>
+        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog.csv" download>
+          Descargar: posts_python_blog.csv
+        </a>
+      </li>
+      <li>
+        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog_procesado.csv" download>
+          Descargar: posts_python_blog_procesado.csv
+        </a>
+      </li>
+      <li>
+        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv" download>
+          Descargar: top_palabras_titulos.csv
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>Top palabras en titulares</h2>
+
+    <table id="tabla">
+      <thead>
+        <tr>
+          <th>Palabra</th>
+          <th>Frecuencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- La tabla se llena automáticamente -->
+      </tbody>
+    </table>
+
+    <p><i>Los datos se cargan automáticamente desde el CSV.</i></p>
+  </div>
+
+  <footer>
+    MediaLab · Proyecto académico · GitHub Pages
+  </footer>
+
+  <!-- SCRIPT PARA CARGAR EL CSV Y ARMAR LA TABLA -->
+  <script>
+    fetch("https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv")
+      .then(response => response.text())
+      .then(text => {
+        const filas = text.trim().split("\n").slice(1);
+        const tbody = document.querySelector("#tabla tbody");
+
+        filas.forEach(fila => {
+          const columnas = fila.split(",");
+          if (columnas.length >= 2) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${columnas[0]}</td>
+              <td>${columnas[1]}</td>
+            `;
+            tbody.appendChild(tr);
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Error cargando el CSV:", error);
+      });
+  </script>
 
 </body>
 </html>
+
 
