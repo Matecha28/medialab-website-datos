@@ -1,122 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>MediaLab – Análisis del Blog de Python</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f6f8fa;
-            margin: 0;
-            padding: 40px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-        }
-        h1, h2 {
-            color: #1f2937;
-        }
-        a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background: #f3f4f6;
-        }
-        ul {
-            line-height: 1.8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>MediaLab – Extracción y Procesamiento de Datos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 40px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    ul {
+      line-height: 1.8;
+    }
+
+    a {
+      color: #4b4bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f0f0f0;
+    }
+
+    .note {
+      background: #f5f7ff;
+      padding: 15px;
+      border-left: 4px solid #4b4bff;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <div class="container">
 
-<h1>Análisis de titulares del Blog de Python</h1>
+    <h1>MediaLab – Extracción y Procesamiento de Datos</h1>
 
-<p>
-Proyecto académico de extracción y análisis de titulares publicados en
-<a href="https://blog.python.org" target="_blank">blog.python.org</a>.
-</p>
+    <p>
+      Este proyecto demuestra un flujo básico de:
+    </p>
 
-<h2>📊 Metodología</h2>
-<ul>
-    <li>Web scraping de titulares y enlaces</li>
-    <li>Limpieza y normalización de texto</li>
-    <li>Cálculo de longitud de títulos</li>
-    <li>Cálculo de frecuencias de palabras</li>
-    <li>Publicación de datos en GitHub Pages</li>
-</ul>
+    <ul>
+      <li>Web scraping de titulares (Python Blog)</li>
+      <li>Procesamiento de texto</li>
+      <li>Cálculo de frecuencias de palabras</li>
+      <li>Publicación de datos en GitHub Pages</li>
+    </ul>
 
-<h2>⬇️ Descarga de datos (CSV)</h2>
+    <h2>Descarga de datos (CSV)</h2>
 
-<ul>
-    <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog.csv" download>
-            Descargar: posts_python_blog.csv
+    <ul>
+      <li>
+        <a href="https://github.com/Matecha28/medialab-website-datos/raw/main/data/posts_python_blog.csv">
+          Descargar: posts_python_blog.csv
         </a>
-    </li>
-    <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog_procesado.csv" download>
-            Descargar: posts_python_blog_procesado.csv
+      </li>
+
+      <li>
+        <a href="https://github.com/Matecha28/medialab-website-datos/raw/main/data/posts_python_blog_procesado.csv">
+          Descargar: posts_python_blog_procesado.csv
         </a>
-    </li>
-    <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv" download>
-            Descargar: top_palabras_titulos.csv
+      </li>
+
+      <li>
+        <a href="https://github.com/Matecha28/medialab-website-datos/raw/main/data/top_palabras_titulos.csv">
+          Descargar: top_palabras_titulos.csv
         </a>
-    </li>
-</ul>
+      </li>
+    </ul>
 
-<h2>🔝 Top palabras en titulares</h2>
+    <div class="note">
+      ⚠️ Nota: algunos navegadores muestran el CSV como texto.  
+      Para descargar: clic derecho → <b>“Guardar enlace como…”</b>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Palabra</th>
-            <th>Frecuencia</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>alpha</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>available</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>another</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>know</td>
-            <td>1</td>
-        </tr>
-    </tbody>
-</table>
+    <h2>Top palabras en titulares</h2>
 
-</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Palabra</th>
+          <th>Frecuencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>alpha</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>available</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>another</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>know</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </body>
 </html>
+
 
 
 
