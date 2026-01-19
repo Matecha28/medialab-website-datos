@@ -24,10 +24,6 @@
       margin-top: 25px;
     }
 
-    ul {
-      padding-left: 20px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -55,111 +51,80 @@
 
 <body>
 
-  <h1>Proyecto académico: Website de Datos</h1>
+<h1>Proyecto académico: Website de Datos</h1>
 
+<p>
+Este sitio web forma parte del curso de
+<b>Extracción y Procesamiento de Datos</b>.
+</p>
+
+<div class="box">
+  <h2>Pregunta del proyecto</h2>
   <p>
-    Este sitio web forma parte del curso de
-    <b>Extracción y Procesamiento de Datos</b>.
-    El objetivo es mostrar cómo un/a estudiante de comunicaciones puede
-    extraer información de una página web, procesarla con Python
-    y publicarla en una web académica usando GitHub.
+    ¿Qué temas aparecen con mayor frecuencia en los titulares del Blog oficial de Python?
   </p>
+</div>
 
-  <div class="box">
-    <h2>Pregunta del proyecto</h2>
-    <p>
-      ¿Qué temas aparecen con mayor frecuencia en los titulares del
-      Blog oficial de Python?
-    </p>
-  </div>
+<div class="box">
+  <h2>Descarga de datos (CSV)</h2>
+  <ul>
+    <li>
+      <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv" download>
+        Descargar: top_palabras_titulos.csv
+      </a>
+    </li>
+  </ul>
+</div>
 
-  <div class="box">
-    <h2>Fuente de datos</h2>
-    <p>
-      Sitio web: <a href="https://blog.python.org/" target="_blank">https://blog.python.org/</a><br>
-      Fecha de extracción: 19 de enero de 2026
-    </p>
-  </div>
+<div class="box">
+  <h2>Top palabras en titulares</h2>
 
-  <div class="box">
-    <h2>Metodología</h2>
-    <ul>
-      <li>Scraping de titulares usando Python (requests + BeautifulSoup).</li>
-      <li>Limpieza y procesamiento de texto.</li>
-      <li>Cálculo de frecuencias de palabras.</li>
-      <li>Publicación de datos y resultados en GitHub Pages.</li>
-    </ul>
-  </div>
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Palabra</th>
+        <th>Frecuencia</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-  <div class="box">
-    <h2>Descarga de datos (CSV)</h2>
-    <ul>
-      <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog.csv" download>
-          Descargar: posts_python_blog.csv
-        </a>
-      </li>
-      <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/posts_python_blog_procesado.csv" download>
-          Descargar: posts_python_blog_procesado.csv
-        </a>
-      </li>
-      <li>
-        <a href="https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv" download>
-          Descargar: top_palabras_titulos.csv
-        </a>
-      </li>
-    </ul>
-  </div>
+<footer>
+  MediaLab · Proyecto académico · GitHub Pages
+</footer>
 
-  <div class="box">
-    <h2>Top palabras en titulares</h2>
+<script>
+fetch("https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv")
+  .then(res => res.text())
+  .then(text => {
+    const lineas = text.trim().split(/\r?\n/);
 
-    <table id="tabla">
-      <thead>
-        <tr>
-          <th>Palabra</th>
-          <th>Frecuencia</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- La tabla se llena automáticamente -->
-      </tbody>
-    </table>
+    // quitamos el header
+    const datos = lineas.slice(1);
 
-    <p><i>Los datos se cargan automáticamente desde el CSV.</i></p>
-  </div>
+    const tbody = document.querySelector("#tabla tbody");
 
-  <footer>
-    MediaLab · Proyecto académico · GitHub Pages
-  </footer>
+    datos.forEach(linea => {
+      const [palabra, count] = linea.split(",");
 
-  <!-- SCRIPT PARA CARGAR EL CSV Y ARMAR LA TABLA -->
-  <script>
-    fetch("https://raw.githubusercontent.com/Matecha28/medialab-website-datos/main/data/top_palabras_titulos.csv")
-      .then(response => response.text())
-      .then(text => {
-        const filas = text.trim().split("\n").slice(1);
-        const tbody = document.querySelector("#tabla tbody");
-
-        filas.forEach(fila => {
-          const columnas = fila.split(",");
-          if (columnas.length >= 2) {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td>${columnas[0]}</td>
-              <td>${columnas[1]}</td>
-            `;
-            tbody.appendChild(tr);
-          }
-        });
-      })
-      .catch(error => {
-        console.error("Error cargando el CSV:", error);
-      });
-  </script>
+      if (palabra && count) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${palabra.trim()}</td>
+          <td>${count.trim()}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    });
+  })
+  .catch(err => {
+    console.error("Error cargando el CSV:", err);
+  });
+</script>
 
 </body>
 </html>
+
 
 
